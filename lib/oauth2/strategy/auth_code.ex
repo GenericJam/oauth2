@@ -27,7 +27,7 @@ defmodule OAuth2.Strategy.AuthCode do
   use OAuth2.Strategy
 
   @doc """
-  Configures the authorization URL endpoint of the provider with additional 
+  Configures the authorization URL endpoint of the provider with additional
   query parameters.
   """
   @impl true
@@ -53,7 +53,7 @@ defmodule OAuth2.Strategy.AuthCode do
     client
     |> put_param(:code, code)
     |> put_param(:grant_type, "authorization_code")
-    |> put_param(:client_id, client.client_id)
+    # |> put_param(:client_id, client.client_id)
     |> put_param(:redirect_uri, client.redirect_uri)
     |> merge_params(params)
     |> basic_auth()
