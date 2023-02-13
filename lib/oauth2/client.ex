@@ -274,6 +274,8 @@ defmodule OAuth2.Client do
   def get_token(%{token_method: method} = client, params \\ [], headers \\ [], opts \\ []) do
     {client, url} = token_url(client, params, headers)
 
+    client.params = client.params |> Map.delete(:client_id)
+
     case Request.request(method, client, url, client.params, client.headers, opts) do
       {:ok, response} ->
         token = AccessToken.new(response.body)
