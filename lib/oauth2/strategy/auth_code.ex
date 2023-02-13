@@ -53,9 +53,28 @@ defmodule OAuth2.Strategy.AuthCode do
     client
     |> put_param(:code, code)
     |> put_param(:grant_type, "authorization_code")
-    # |> put_param(:client_id, client.client_id)
+    |> put_param(:client_id, client.client_id)
     |> put_param(:redirect_uri, client.redirect_uri)
     |> merge_params(params)
+    |> basic_auth()
+    |> put_headers(headers)
+  end
+
+  @doc """
+  Retrieve an access token given the specified validation code.
+  """
+  @impl true
+  def get_okta_token(client, params, headers) do
+    {code, params} = Keyword.pop(params, :code, client.params["code"])
+
+    unless code do
+      raise OAuth2.Error, reason: "Missing required key `code` for `#{inspect(__MODULE__)}`"
+    end
+
+    client
+    |> put_param(:code, code)
+    |> put_param(:grant_type, "authorization_code")
+    |> put_param(:redirect_uri, client.redirect_uri)
     |> basic_auth()
     |> put_headers(headers)
   end
