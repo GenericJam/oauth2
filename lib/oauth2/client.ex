@@ -154,6 +154,11 @@ defmodule OAuth2.Client do
     %{client | params: Map.put(params, "#{key}", value)}
   end
 
+  @spec remove_params(t) :: t
+  def remove_params(%Client{params: params} = client) do
+    %{client | params: %{}}
+  end
+
   @doc """
   Set multiple params in the client in one call.
   """
