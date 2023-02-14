@@ -58,6 +58,7 @@ defmodule OAuth2.Strategy.AuthCode do
     # |> merge_params(params)
     |> basic_auth()
     |> put_headers(headers)
+    |> IO.inspect()
   end
 
   @doc """
