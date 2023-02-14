@@ -52,6 +52,7 @@ defmodule OAuth2.Strategy.AuthCode do
 
     client
     |> remove_params()
+    |> IO.inspect()
     |> put_param(:code, code)
     |> put_param(:grant_type, "authorization_code")
     # |> put_param(:client_id, client.client_id)
